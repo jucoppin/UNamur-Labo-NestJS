@@ -49,4 +49,23 @@ export class ManagerService {
       throw new ServiceUnavailableException();
     }
   }
+
+  async saveAll(managers: Manager[]): Promise<Manager[]> {
+    for (const manager of managers) {
+      const managerFromDB = await this.repo.findOneBy({
+        firstName: manager.firstName,
+        lastName: manager.lastName,
+      });
+
+      if (managerFromDB) {
+        managerFromDB.isActive = manager.isActive;
+        await this.repo.save(managerFromDB);
+        // Skip
+      } else {
+        await this.repo.save(manager);
+      }
+    }
+    // return this.repo.save(managers);
+    return managers;
+  }
 }

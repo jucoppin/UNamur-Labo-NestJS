@@ -14,4 +14,13 @@ export class Manager extends BaseEntity {
 
   @Column({ type: 'boolean', nullable: false, default: false })
   isActive: boolean;
+
+  constructor(firstName?: string, lastName?: string, isActive?: boolean) {
+    super();
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.isActive = isActive;
+  }
+
 }

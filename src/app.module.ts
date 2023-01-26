@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from "@nestjs/jwt";
 import { ManagerModule } from './manager/manager.module';
 import { CoreModule } from './core/core.module';
+import { PublicModule } from './public/public.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CoreModule } from './core/core.module';
       username: 'housing',
       password: '1234',
       database: 'housing',
+      // dropSchema: true,
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -24,6 +26,7 @@ import { CoreModule } from './core/core.module';
     }),
     CoreModule,
     ManagerModule,
+    PublicModule,
   ],
   controllers: [],
   providers: [],
