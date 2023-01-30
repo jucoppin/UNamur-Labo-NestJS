@@ -15,6 +15,8 @@ services:
 
   db:
     image: postgres:14
+    ports:
+      - '127.0.0.1:60002:5432'
     environment:
       POSTGRES_USER: housing
       POSTGRES_PASSWORD: 1234
@@ -23,7 +25,7 @@ services:
   adminer:
     image: adminer:latest
     ports:
-      - '127.0.0.1:3080:8080'
+      - '127.0.0.1:60080:8080'
     environment:
       ADMINER_DEFAULT_SERVER: db
       ADMINER_DEFAULT_USER: housing

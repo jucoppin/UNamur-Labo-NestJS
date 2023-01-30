@@ -5,6 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ID } from "../../core/interfaces/id.interface";
 import { CreateManagerDTO } from "../dto/create-manager.dto";
 import { PatchManagerDTO } from "../dto/patch-manager.dto";
+import { DeepPartial } from "typeorm/common/DeepPartial";
 
 @Injectable()
 export class ManagerService {
@@ -15,11 +16,24 @@ export class ManagerService {
   }
 
   async getAll(): Promise<Manager[]> {
-    return this.repo.find();
+    return this.repo.find({
+      relations: {
+        buildings: true,
+      }
+    });
   }
 
   async get(id: number): Promise<Manager> {
-    return this.repo.findOneByOrFail({ id });
+    return this.repo.findOneOrFail({
+      where: { id },
+      relations: {
+        buildings: true,
+      }
+    });
+  }
+
+  createGeneric(dto: DeepPartial<Manager>): Manager {
+    return this.repo.create(dto);
   }
 
   async create(dto: CreateManagerDTO): Promise<ID> {
@@ -61,7 +75,8 @@ export class ManagerService {
         managerFromDB.isActive = manager.isActive;
         await this.repo.save(managerFromDB);
         // Skip
-      } else {
+      }
+      else {
         await this.repo.save(manager);
       }
     }

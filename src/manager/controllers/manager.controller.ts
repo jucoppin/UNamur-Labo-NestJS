@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, ServiceUnavailableException } from '@nestjs/common';
 import { ManagerService } from "../services/manager.service";
 import { Manager } from "../entities/manager.entity";
 import { ID } from "../../core/interfaces/id.interface";
@@ -14,7 +14,10 @@ export class ManagerController {
 
   @Get('')
   async getAll(): Promise<Manager[]> {
-    return this.service.getAll();
+    // throw new ServiceUnavailableException();
+    // console.log(await this.service.getAll());
+    console.log(await this.service.getAll());
+    return await this.service.getAll();
   }
 
   @Get(':id')
