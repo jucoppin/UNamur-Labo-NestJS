@@ -49,6 +49,11 @@ export class ManagerService {
 
     this.repo.merge(entity, dto);
 
+    it(dto.lastName)
+    {
+      entity.lastName = dto.lastName;
+    }
+
     await this.repo.save(entity);
 
     return { id: entity.id };

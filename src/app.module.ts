@@ -1,24 +1,25 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from "@nestjs/jwt";
 import { ManagerModule } from './manager/manager.module';
 import { CoreModule } from './core/core.module';
 import { PublicModule } from './public/public.module';
 import { BuildingModule } from './building/building.module';
+import { TypeOrmModule } from "@nestjs/typeorm";
+import * as process from "process";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db',
-      port: 5432,
-      username: 'housing',
-      password: '1234',
-      database: 'housing',
-      dropSchema: true,
-      synchronize: true,
+      host: process.env['TYPEORM_HOST'],
+      port: parseInt(process.env['TYPEORM_PORT']),
+      username: process.env['TYPEORM_USERNAME'],
+      password: process.env['TYPEORM_PASSWORD'],
+      database: process.env['TYPEORM_DATABASE'],
+      // dropSchema: true,
+      // synchronize: true,
       autoLoadEntities: true,
-      logging: 'all',
+      logging: process.env['TYPEORM_LOGGING'] === 'true' ? 'all' : false,
     }),
     JwtModule.register({
       secret: 'UNamur',

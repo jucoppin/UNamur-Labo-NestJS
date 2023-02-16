@@ -7,8 +7,7 @@ services:
       dockerfile: .docker/Dockerfile
     ports:
       - '127.0.0.1:60000:3000'
-    environment:
-      NODE_ENV: dev
+    env_file: .env-back
     working_dir: /api
     volumes:
       - .:/api
@@ -17,10 +16,9 @@ services:
     image: postgres:14
     ports:
       - '127.0.0.1:60002:5432'
-    environment:
-      POSTGRES_USER: housing
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: housing
+    env_file: .env-db
+    volumes:
+      - db:/var/lib/postgresql/data
 
   adminer:
     image: adminer:latest

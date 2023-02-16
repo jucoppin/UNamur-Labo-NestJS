@@ -36,9 +36,9 @@ export class PublicController {
     await this.managerService.saveAll(managers);
 
     const buildings: Building[] = [
-      this.buildingService.createGeneric({
-        name: 'Test building 1', address: 'Rue de namur', manager: managers[0],
-      })
+      // this.buildingService.createGeneric({
+      //   name: 'Test building 1', address: 'Rue de namur', manager: managers[0],
+      // })
     ];
 
     await this.buildingService.saveAll(buildings);

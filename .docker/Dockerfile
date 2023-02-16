@@ -10,4 +10,5 @@ RUN echo "alias ll='ls -alh'" > ~/.bashrc
 CMD yarn \
     && chmod -R 777 . \
     && setfacl -Rdm o::rwx /api \
+    && rm -fr dist \
     && yarn run start:debug --preserveWatchOutput

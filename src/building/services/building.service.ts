@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Building } from "../entities/building.entity";
@@ -21,14 +21,20 @@ export class BuildingService {
   }
 
   async get(id: number): Promise<Building> {
-    return this.repo.findOneOrFail({
+    const entity = await this.repo.findOne({
       where: {
         id,
       },
       relations: {
         manager: true,
       }
-    })
+    });
+
+    if (!entity) {
+      throw new NotFoundException();
+    }
+
+    return entity;
   }
 
   async saveAll(buildings: Building[]): Promise<Building[]> {

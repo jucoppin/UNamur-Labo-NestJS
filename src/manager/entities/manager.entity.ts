@@ -7,11 +7,14 @@ export class Manager extends BaseEntity {
   @PrimaryGeneratedColumn()
   override id: number;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: false, unique: true })
   firstName: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   lastName: string;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  phone: string;
 
   @Column({ type: 'boolean', nullable: false, default: false })
   isActive: boolean;
