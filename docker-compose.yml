@@ -4,10 +4,10 @@ services:
   api:
     build:
       context: .
-      dockerfile: .docker/Dockerfile
+      dockerfile: .docker/local/Dockerfile
     ports:
       - '127.0.0.1:60000:3000'
-    env_file: .env-back
+    env_file: .docker/local/.env-back
     working_dir: /api
     volumes:
       - .:/api
@@ -16,7 +16,7 @@ services:
     image: postgres:14
     ports:
       - '127.0.0.1:60002:5432'
-    env_file: .env-db
+    env_file: .docker/local/.env-db
     volumes:
       - db:/var/lib/postgresql/data
 
